@@ -1,0 +1,263 @@
+---
+title: "Science texts (viruses) final stats imac"
+output: html_notebook
+---
+
+# Experiment 1: Viruses Text
+
+```{r}
+library(afex)
+library(emmeans)
+library(ltm)
+library(tidyverse)
+library(gt)
+library(interactions)
+library(cowplot)
+library(broom.mixed)
+library(gtsummary)
+
+home_dir = getwd()
+df = read.csv(paste(home_dir,"MC_for_stats_in_r_n=170_11_8_21.csv",sep="/"),header=TRUE) 
+df$q_num = as.factor(df$q_num)
+df$subjectGroup = recode(df$subjectGroup, "nsg:1"="RPm","nsg:2"="RPp", "nsg:3"= "NRP")
+df$subjectGroup = factor(df$subjectGroup,levels=c("RPm","RPp","NRP"))
+
+add = read.csv(paste(home_dir,"viruses_GMRT_familiarity_transformed.csv",sep="/"))
+df = left_join(add,df,by="mturk_id")
+
+df = df[,c("mturk_id","subjectGroup","GMRT_bc_c_s","familiarity_bc_c_s","q_num","q_type","correct")]
+df = df %>% rename("Reading_Ability"= GMRT_bc_c_s,"Prior_Knowledge" = familiarity_bc_c_s)
+```
+
+## Multiple Choice
+
+### Model Selection
+
+```{r MC model selection}
+# mm1.g = glmer(data=df,formula=(correct ~ subjectGroup * q_type * Reading_Ability * Prior_Knowledge  + (q_type|mturk_id) + (1|q_num)),family=binomial(link='logit'),control = glmerControl(optCtrl = list(maxfun = 1e6)))
+
+# gm_all <- lme4::allFit(mm1.g) # almost all except Nelder_Mead (failed to converge) are singular
+
+# mm2.g = glmer(data=df,formula=(correct ~ subjectGroup * q_type * Reading_Ability * Prior_Knowledge  + (q_type||mturk_id) + (1|q_num)),family=binomial(link='logit'), control = glmerControl(optCtrl = list(maxfun = 1e6)))
+
+# gm_all2 <- lme4::allFit(mm2.g) # almost all except Nelder_Mead (failed to converge) are singular
+
+# summary(mm2.g)$varcor 
+# # random slope estimate for q_type is very small 
+
+mm3.g = glmer(data=df,formula=(correct ~ subjectGroup * q_type * Reading_Ability * Prior_Knowledge  + (1|mturk_id) + (1|q_num)),family=binomial(link='logit'), control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer="bobyqa"))
+
+# gm_all3 <- lme4::allFit(mm3.g) # 4 failed to converge
+
+# check estimates of different optimizers, if they are practically equivalent, convergence warning is probably false positive
+# Therefore use whichever converges fastest
+
+# ss = summary(gm_all3)
+# ss$ fixef               ## fixed effects
+#   ss$ llik                ## log-likelihoods
+#   ss$ sdcor               ## SDs and correlations
+#   ss$ theta               ## Cholesky factors
+#   ss$ which.OK            ## which fits worked
+
+# Results are practically identical, therefore will proceed to use bobyqa and mm3.g as final model
+
+# summary(mm3.g)
+```
+
+### Multiple Choice Final Model
+
+```{r final_model_pb}
+# no random slope for q_type
+require(parallel)
+cl <- makeCluster(rep("localhost", 6)) # make cluster
+#  
+mm3 = afex::mixed(cl=cl,data=df,formula=(correct ~ subjectGroup * q_type * Reading_Ability * Prior_Knowledge  + (1|mturk_id) + (1|q_num)), family=binomial(link='logit'),method="PB",args_test = list(nsim = 1000, cl = cl),progress=TRUE,expand_re = TRUE,control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer="bobyqa"))
+stopCluster(cl)
+```
+
+```{r mm3 residual plot}
+# arm::binnedplot(fitted(mm3$full_model),
+#            residuals(mm3$full_model, type = "response"),
+#            nclass = NULL,
+#            cex.pts = 0.8,
+#            col.pts = 1,
+#            col.int = "gray")
+
+```
+
+```{r}
+# check contrasts
+contrasts(mm3$data$subjectGroup)
+```
+
+```{r}
+mm3 
+```
+```{r}
+summary(mm3$full_model)
+```
+
+### Interaction of subjectGroup and Prior Knowledge
+
+```{r MC_subjectGroup_Prior_Knowledge_interaction}
+probe_interaction(mm3$full_model, modx = subjectGroup, pred = Prior_Knowledge,plot.points = FALSE)
+```
+
+### Interaction of question type and Reading Ability
+
+```{r subjectGroup_Prior_Knowledge_interaction}
+probe_interaction(mm3$full_model, modx = q_type, pred = Reading_Ability,plot.points = FALSE)
+```
+
+### Interaction of subjectGroup and Question Type
+
+```{r MC emmeans}
+emm_options(glmer.df = "asymptotic")
+emm_1 <- emmeans(mm3, "subjectGroup",by="q_type")
+pairs(emm_1,adjust=NULL)
+```
+## Recall 
+
+```{r noRP_load_load_data}
+home_dir = getwd()
+df = read.csv(paste(home_dir,"binary_correct_n=170_10_18_22.csv",sep="/"),header=TRUE)
+df$subjectGroup = recode(df$subjectGroup,"nsg:3"= "NRP", "nsg:1"="RPm","nsg:2"="RPp" )
+df$subjectGroup = factor(df$subjectGroup, c("RPm","RPp","NRP"))
+
+df$idea_units = as.factor(df$idea_units)
+
+add = read.csv(paste(home_dir,"viruses_GMRT_familiarity_transformed.csv",sep="/"))
+df = left_join(add,df,by="mturk_id")
+
+df = df[,c("mturk_id","subjectGroup","GMRT_bc_c_s","familiarity_bc_c_s","idea_units","correct","RP_any","RP_imp","RP_per")]
+df = df %>% rename("Reading_Ability"= GMRT_bc_c_s,"Prior_Knowledge" = familiarity_bc_c_s)
+```
+
+### Main Idea Units
+
+```{r main idea units}
+dfRPi = df[df$RP_imp == 1,]
+```
+
+```{r}
+# mm.RPi1.g = glmer(data=dfRPi,correct ~ subjectGroup * Reading_Ability * Prior_Knowledge  + (1|mturk_id) + (1|idea_units),family=binomial(link='logit'),control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer = "bobyqa"))
+
+# gm_all <- lme4::allFit(mm.RPi1.g) #
+
+# ss <- summary(gm_all)
+# ss$ fixef               ## fixed effects
+# ss$ llik                ## log-likelihoods
+# ss$ sdcor               ## SDs and correlations
+# ss$ theta               ## Cholesky factors
+# ss$ which.OK            ## which fits worked
+# nearly identical, so will use boyqa for speed
+```
+
+```{r RPi_PB}
+require(parallel)
+cl <- makeCluster(rep("localhost", 6)) # make cluster
+mm.RPi1 = afex::mixed(cl=cl,data=dfRPi,formula=(correct ~ subjectGroup * Reading_Ability * Prior_Knowledge  + (1|mturk_id) + (1|idea_units)),family=binomial(link='logit'),method="PB",args_test = list(nsim = 1000, cl = cl),progress=TRUE,expand_re = TRUE,control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer="bobyqa"))
+stopCluster(cl)
+```
+
+```{r}
+mm.RPi1
+```
+
+```{r}
+# summary(mm.RPi1$full_model,correlation=FALSE)
+```
+
+```{r RPi emmeans}
+emm_options(glmer.df = "asymptotic")
+emm_1 <- emmeans(mm.RPi1, "subjectGroup")
+pairs(emm_1,adjust=NULL)
+```
+
+### Peripheral Idea Units
+
+```{r peripheral idea units}
+dfRPp = df[df$RP_per == 1,]
+```
+
+```{r}
+mm.RPp1.g = glmer(data=dfRPp,correct ~ subjectGroup * Reading_Ability * Prior_Knowledge  + (1|mturk_id) + (1|idea_units),family=binomial(link='logit'),control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer = "bobyqa"))
+
+# gm_all <- lme4::allFit(mm.RPp1.g) # 4 failed to converge, compare results
+
+# ss <- summary(gm_all)
+# ss$ fixef               ## fixed effects
+# ss$ llik                ## log-likelihoods
+# ss$ sdcor               ## SDs and correlations
+# ss$ theta               ## Cholesky factors
+# ss$ which.OK            ## which fits worked
+# nearly identical, so will use bobyqa for speed
+```
+
+```{r RPp_PB}
+require(parallel)
+cl <- makeCluster(rep("localhost", 6)) # make cluster
+mm.RPp1 = afex::mixed(cl=cl,data=dfRPp,formula=(correct ~ subjectGroup * Reading_Ability * Prior_Knowledge  + (1|mturk_id) + (1|idea_units)),family=binomial(link='logit'),method="PB",args_test = list(nsim = 1000, cl = cl),progress=TRUE,expand_re = TRUE,control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer="bobyqa"))
+stopCluster(cl)
+```
+
+```{r}
+mm.RPp1
+```
+
+```{r RPp_coefficients}
+# summary(mm.RPp1$full_model,correlation=FALSE)
+```
+
+```{r RPp emmeans}
+emm_options(glmer.df = "asymptotic")
+emm_1 <- emmeans(mm.RPp1, "subjectGroup")
+pairs(emm_1,adjust=NULL)
+```
+
+### Non-practiced Idea Units 
+
+```{r Untested_idea_units}
+dfNoRP = df[df$RP_any == 0,]
+mm.noRP1.g = glmer(data=dfNoRP,correct ~ subjectGroup * Reading_Ability * Prior_Knowledge + (1|mturk_id) + (1|idea_units),family=binomial(link='logit'),control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer = "bobyqa"))
+
+# gm_all <- lme4::allFit(mm.noRP1.g) # 2 failed to converge, compare results
+# 
+# ss <- summary(gm_all)
+#   ss$ fixef               ## fixed effects
+#   ss$ llik                ## log-likelihoods
+#   ss$ sdcor               ## SDs and correlations
+#   ss$ theta               ## Cholesky factors
+#   ss$ which.OK            ## which fits worked
+# nearly identical, so will use boyqa for speed
+```
+
+```{r  noRP_pb}
+# no random slope for q_type
+require(parallel)
+cl <- makeCluster(rep("localhost", 6)) # make cluster
+#  
+mm.noRP1 = afex::mixed(cl=cl,data=dfNoRP,formula=(correct ~ subjectGroup * Reading_Ability * Prior_Knowledge + (1|mturk_id) + (1|idea_units)), family=binomial(link='logit'),method="PB",args_test = list(nsim = 1000, cl = cl),progress=TRUE,expand_re = TRUE,control = glmerControl(optCtrl = list(maxfun = 1e6),optimizer="bobyqa"))
+stopCluster(cl)
+```
+
+```{r}
+mm.noRP1
+```
+```{r}
+summary(mm.noRP1$full_model)
+```
+
+```{r noRP emmeans}
+emm_options(glmer.df = "asymptotic")
+emm_1 <- emmeans(mm.noRP1, "subjectGroup")
+pairs(emm_1,adjust=NULL)
+```
+
+```{r noRP_coefficients}
+# summary(mm.noRP1$full_model,correlation=FALSE)
+```
+
+```{r}
+probe_interaction(mm.noRP1$full_model, pred = Prior_Knowledge, modx = subjectGroup,mod2 = Reading_Ability , plot.points = FALSE)
+```

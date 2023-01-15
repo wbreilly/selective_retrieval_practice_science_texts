@@ -1,0 +1,64 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+
+library(gt)
+library(tidyverse)
+
+home_dir = "/Volumes/GoogleDrive/My Drive/grad_school/DML_WBR/dissertation_drive/cna_recall/cohmetrix"
+```
+
+```{r}
+ListOfFileNames= list.files(path = home_dir,
+                       pattern = '*.txt',recursive = TRUE, full.names = TRUE)
+
+
+# check =read.csv(ListOfFileNames[1],sep="\t")#[x$Label %in% c('PCREFz','PCDCz','RDFKGL'),]
+# check[check$Label %in% c('PCREFz','PCDCz','RDFKGL'),]
+# check[1]
+
+# 18 PCREFz - referentical cohesion
+# 20 PCDCz  - deep cohesion
+# 105 RDFKGL - Flesch-Kincaid Grade Level
+
+# multiple.func <- function(x) {
+#       c(read.csv(x,sep="\t")[c(18,20,105),],x)
+# }
+
+result = do.call(rbind, lapply(ListOfFileNames, function(x) 
+                  read.csv(x,sep="\t")[c(18,20,105),]))
+
+names = basename(ListOfFileNames)
+names = gsub("_cohmetrix.txt","",names)
+
+colnames(result)[4] = "Value"
+result$Text = rep(names,each=3)
+result$Number = NULL
+result$Label.V2.x = NULL
+
+# clean up labels
+result$Label = recode(result$Label,"PCREFz"="Cohesion-Referential","PCDCz"="Cohesion-Deep","RDFKGL"="Flesch-Kincaid")
+
+table = result %>% spread(Text,Value)
+table %>% gt()
+
+
+```
+
+```{r summarize}
+# create new column with first author
+
+result = result %>% separate(Text, c("author","text"),"_")
+
+# clean up authors
+result$author = recode(result$author,"little"="Little et al., (2011)","chan"="Chan (2009)","reilly"="Reilly et al., (in press)")
+
+look =  result %>% group_by(Label,author) %>%  summarize(mean=mean(Value)) 
+look %>% spread(Label,mean) %>% gt() %>% fmt_number(
+     columns = c("Cohesion-Deep","Cohesion-Referential","Flesch-Kincaid"),
+    decimals = 2) %>% gtsave("cohmetrix_table.png")
+```
+

@@ -1,0 +1,108 @@
+---
+title: "Bayes Factor Analysis"
+output: html_notebook
+---
+## Briefly, this notebook was created to compute Bayes Factors in Reilly et al.'s investigation of selective retrieval effects on unpracticed information in science texts. Previous studies observed that retrieval practice could enhance retrieval of related, unpracticed information, however, in our studies, this effect was not observed. We conducted Bayes Factor analyses to investigate whether our data provided evidence for the null hypothesis or were, instead, merely insensitive to our manipulation. 
+
+------------
+
+#### Specifically, we tested the null hypothesis against two theoretical priors given the data we observed. The null hypothesis was that there would be no impact on retention of related material due to retrieval practice, which was represented as a single point at zero. Following Dienes’s (2014) guidelines and anchored by Chan’s (2009) observation of both RIF and RIFA effects equal to 9%, the RIFA hypothesis was represented by a half-normal distribution with a minimum of zero and a standard deviation of 9, and the RIF hypothesis was represented by the negative of the same distribution. The choice to use half-normal distributions for priors instead of a normal distribution stacked the deck in favor of observing evidence for the alternative hypothesis, therefore any evidence for the null hypothesis could be interpreted as particularly strong. The data model was represented by a normal distribution with a mean of the observed difference in untested idea unit retention between RPm and NRP, and between RPp and NRP, and a standard deviation of one half of the mean difference (Dienes, 2014). Bayes Factors were computed by first weighting the data models by the three prior distributions (RIFA, RIF, and null), then dividing the integral of the RIFA weighted distribution by the integral of the null distribution, and likewise, dividing the integral of the RIF weighted distribution by the integral of the null distribution. Bayes Factor values range from 0 to infinity, whereby 1 indicates equal likelihood of the null and alternative distribution, and values between .3 and 3 are perceived to indicate insensitivity to detecting differences. We used the Bayesplay library to compute Bayes Factors and Wagenmakers et al. (2017) interpretations of Bayes Factor values. 
+
+##### N.B. The subscript in the Bayes factor notation indicates which hypothesis is supported by the data. BF10 indicates the Bayes factor in favor of H1 over H0, whereas BF01 indicates the Bayes factor in favor of H0 over H1. Specifically, BF10 = 1/BF01. Larger values of BF10 indicate more support for H1. Bayes factors range from 0 to ∞, and a Bayes factor of 1 indicates that both hypotheses predicted the data equally well.
+
+
+```{r}
+library(bayesplay)
+library(tidyverse)
+library(afex)
+library(emmeans)
+```
+
+```{r bayes_funk}
+
+bayes_funk = function(data_mean,data_sd){
+  
+# define likelihood
+data_model <- likelihood(family = "normal", mean = data_mean, sd = data_sd) 
+
+# define alternative prior
+alt_prior_RIFA <- prior(family = "normal", mean = 0, sd = 9, range = c(0, Inf))
+alt_prior_RIF <- prior(family = "normal", mean = 0, sd = 9, range = c(-Inf,0))
+
+# define null prior
+null_prior <- prior(family = "point", point = 0)
+
+# weight likelihood by prior
+m1 <- data_model * alt_prior_RIFA
+m2 <- data_model * alt_prior_RIF
+m0 <- data_model * null_prior
+
+# take the intergal of each weighted likelihood 
+# and divide them
+bf1 <- integral(m1) / integral(m0)
+bf2 <- integral(m2) / integral(m0)
+
+# generate the plots
+
+# # plot the likelihood
+# plot(data_model)
+# 
+# # plot the two priors
+# plot(alt_prior)
+# plot(null_prior)
+
+# get a verbal description of the Bayes factor
+result = list("alt RIFA", summary(bf1),"alt RIF",summary(bf2))
+return(result)
+}
+```
+
+
+```{r exp1_prepare_data}
+home_dir = "/Volumes/GoogleDrive/My Drive/grad_school/DML_WBR/dissertation_drive/cna_recall/rifa_exp2_mturk/"
+
+df = read.csv(paste(home_dir,"MIUR_noRP_for_stats_in_r_n=170_11_8_21.csv",sep=""),header=TRUE)
+df$mturk_id = as.factor(df$mturk_id)
+# convert MIUR_noRP to %
+df$MIUR_noRP_pct = df$MIUR_noRP / 31 * 100  
+```
+
+```{r exp1_estimate_sample_means}
+a1 = aov_ez("mturk_id", "MIUR_noRP_pct", df,between = c("subjectGroup","GMRT_c","familiarity_c"),observed =c("GMRT_c","familiarity_c"),factorize = FALSE)
+summary(a1)
+em1 = emmeans(a1, pairwise ~ subjectGroup) %>% as.data.frame()
+diff1 = em1[em1$contrast=="nsg:1 - nsg:3",3]
+diff2 = em1[em1$contrast=="nsg:2 - nsg:3",3]
+# em1
+# emmeans(a1, pairwise ~ subjectGroup,adjust="None") 
+```
+
+```{r exp1_BF}
+bayes_funk(diff1,abs(diff1)/2)
+bayes_funk(diff2,abs(diff2)/2)
+```
+
+```{r exp2_prepare_data}
+home_dir = "/Volumes/GoogleDrive/My Drive/grad_school/DML_WBR/dissertation_drive/cna_recall/rifa_exp2_endo/"
+
+df = read.csv(paste(home_dir,"MIUR_noRP_for_stats_in_r_n=190_8_7_22.csv",sep=""),header=TRUE)
+df$mturk_id = as.factor(df$mturk_id)
+# convert MIUR_noRP to %
+df$MIUR_noRP_pct = df$MIUR_noRP / 28 * 100
+```
+
+
+```{r exp2_estimate_sample_means}
+a1 = aov_ez("mturk_id", "MIUR_noRP_pct", df,between = c("subjectGroup","GMRT_c","familiarity_c"),observed =c("GMRT_c","familiarity_c"),factorize = FALSE)
+summary(a1)
+em1 = emmeans(a1, pairwise ~ subjectGroup) %>% as.data.frame()
+diff1 = em1[em1$contrast=="nsg:1 - nsg:3",3]
+diff2 = em1[em1$contrast=="nsg:2 - nsg:3",3]
+em1
+emmeans(a1, pairwise ~ subjectGroup,adjust="None") 
+```
+
+```{r exp2_BF}
+bayes_funk(diff1,abs(diff1)/2)
+bayes_funk(diff2,abs(diff2)/2)
+```
