@@ -8,11 +8,11 @@ Our results showed robust increases in retention for practiced material, regardl
 
 ### Contents
 
-This repository includes the scripts used to munge, analyze, and visualize the data. It also includes html files that contain the code and output from all statistical analyses.  
+This repository includes the scripts used to munge, analyze, and visualize the data and the figures. It also includes html files that contain the code and output from all statistical analyses.
 
 ### Key scripts
 
-`preprocessing.py` Run interactively. Combines the three experimental phases, engineers features, identifies bad data, and, finally, outputs clean dataframes.
+`preprocessing.py` Run interactively. Combines the three experimental phases, engineers features, identifies bad data, and outputs clean dataframes.
 
 `publication_ready_plots.py` Produces the manuscript's figures. 
 
@@ -26,9 +26,11 @@ This repository includes the scripts used to munge, analyze, and visualize the d
 ![Figure 1](figures/recall_figure.png)
 Recall Performance. Mean idea units recalled on the final free recall test for each type of idea unit for Experiment 1 (viruses text) and Experiment 2 (endocrine text). Main idea units were practiced by the RPm group only. Peripheral idea units were practiced by the RPp group only. The NRP group did not practice any idea units. Panels A and B depict the “testing effect” in that retention of main ideas and peripheral ideas were greatest for the RPm and RPp groups, respectively. Panel C depicts recall of unpracticed idea units (all idea units not included in previous two panels). Error bars indicate standard error of the mean. 
 
+
 ### Figure 2. 
 ![Figure 2](figures/mc_figure.png)
 Multiple Choice Performance. Mean proportion correct on the multiple-choice final test. Error bars represent standard error of the mean.
+
 
 ### Figure 3. 
 ![Figure 3](figures/experiment2_3way_figure.png)
@@ -36,9 +38,7 @@ Effects of reading ability and domain knowledge on recall in Experiment 2. Boots
 
 ### Tools
 
-
-
-
+[![](https://img.shields.io/badge/pandas-1.1.3-blue)](https://pandas.pydata.org/)
 
 
 
