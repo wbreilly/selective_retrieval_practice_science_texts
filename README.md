@@ -38,7 +38,26 @@ Effects of reading ability and domain knowledge on recall in Experiment 2. Boots
 
 ### Tools
 
+[![](https://img.shields.io/badge/python-3.7.9-blue)](https://www.python.org/)
+[![](https://img.shields.io/badge/spyder-4.1.5-blue)](https://www.spyder-ide.org/)
 [![](https://img.shields.io/badge/pandas-1.1.3-blue)](https://pandas.pydata.org/)
+[![](https://img.shields.io/badge/seaborn-0.11.1-blue)](https://seaborn.pydata.org/)
+[![](https://img.shields.io/badge/matplotlib-3.3.2-blue)](https://matplotlib.org/)
+
+[![](https://img.shields.io/badge/R-4.2.2-blue)](https://www.r-project.org/)
+[![](https://img.shields.io/badge/RStudio-2022.07.2-blue)](https://posit.co/products/open-source/rstudio/)
+[![](https://img.shields.io/badge/tidyverse-1.3.2-blue)](https://www.tidyverse.org/)
+[![](https://img.shields.io/badge/afex-1.2.0-blue)](https://cran.r-project.org/web/packages/afex/index.html)
+[![](https://img.shields.io/badge/emmeans-1.8.2-blue)](https://cran.r-project.org/web/packages/emmeans/index.html)
+[![](https://img.shields.io/badge/pbkrtest-0.5.1-blue)](https://cran.r-project.org/web/packages/pbkrtest/index.html)
+[![](https://img.shields.io/badge/lme4-1.1.31-blue)](https://cran.r-project.org/web/packages/lme4/index.html)
+[![](https://img.shields.io/badge/gt-0.8.0-blue)](https://cloud.r-project.org/web/packages/gt/index.html)
+[![](https://img.shields.io/badge/rmarkdown-2.18.0-blue)](https://rmarkdown.rstudio.com/)
+
+
+
+
+
 
 
 
