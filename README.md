@@ -24,13 +24,17 @@ This repository includes the scripts used to munge, analyze, and visualize the d
 
 ### Figures
 
+#### Figure 1. 
 ![Figure 1](figures/recall_figure.png)
-Figure 1. Recall Performance. Mean idea units recalled on the final free recall test for each type of idea unit for Experiment 1 (viruses text) and Experiment 2 (endocrine text). Main idea units were practiced by the RPm group only. Peripheral idea units were practiced by the RPp group only. The NRP group did not practice any idea units. Panels A and B show the “testing effect” in that retention of main ideas and peripheral ideas were greatest for the RPm and RPp groups, respectively. Error bars indicate standard error of the mean. 
+Recall Performance. Mean idea units recalled on the final free recall test for each type of idea unit for Experiment 1 (viruses text) and Experiment 2 (endocrine text). Main idea units were practiced by the RPm group only. Peripheral idea units were practiced by the RPp group only. The NRP group did not practice any idea units. Panels A and B depict the “testing effect” in that retention of main ideas and peripheral ideas were greatest for the RPm and RPp groups, respectively. Panel C depicts recall of unpracticed idea units (all idea units not included in previous two panels). Error bars indicate standard error of the mean. 
 
+#### Figure 2. 
 ![Figure 2](figures/mc_figure.png)
-Figure 2. Multiple Choice Performance. Mean proportion correct on the multiple-choice final test. Error bars represent standard error of the mean.
+Multiple Choice Performance. Mean proportion correct on the multiple-choice final test. Error bars represent standard error of the mean.
 
-
+#### Figure 3. 
+![Figure 3](figures/experiment2_3way_figure.png)
+Effects of reading ability and domain knowledge on recall in Experiment 2. Bootstrap analyses of unpracticed idea units in the endocrine text (Experiment 2) revealed a significant three-way interaction between participant group, reading ability, and prior knowledge. For visualization purposes, participants were divided with a median split according to prior knowledge and reading ability. Error bars represent standard error of the mean of each cell.
 
 ### Tools
 
