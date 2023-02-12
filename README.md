@@ -25,9 +25,10 @@ This repository includes the scripts used to munge, analyze, and visualize the d
 ### Figures
 
 ![Figure 1](figures/recall_figure.png)
-
 Figure 1. Recall Performance. Mean idea units recalled on the final free recall test for each type of idea unit for Experiment 1 (viruses text) and Experiment 2 (endocrine text). Main idea units were practiced by the RPm group only. Peripheral idea units were practiced by the RPp group only. The NRP group did not practice any idea units. Panels A and B show the “testing effect” in that retention of main ideas and peripheral ideas were greatest for the RPm and RPp groups, respectively. Error bars indicate standard error of the mean. 
 
+![Figure 2](figures/mc_figure.png)
+Figure 2. Multiple Choice Performance. Mean proportion correct on the multiple-choice final test. Error bars represent standard error of the mean.
 
 
 
