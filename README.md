@@ -20,7 +20,7 @@ This repository includes the scripts used to munge, analyze, and visualize the d
 
 `endocrine_stats_imac2.Rmd` Experiment 2 statistical analyses. Control analyses, recall model selection and analyses, multiple choice model selection and analyses. 
 
-`bayes_factor.Rmd` Bayes Factor analyses for Experiment 1 and 2
+`bayes_factor.Rmd` Bayes Factor analyses for Experiment 1 and 2.
 
 ### Figure 1. 
 <p align="center">
