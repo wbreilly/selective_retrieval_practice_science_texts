@@ -23,7 +23,9 @@ This repository includes the scripts used to munge, analyze, and visualize the d
 `bayes_factor.Rmd` Bayes Factor analyses for Experiment 1 and 2
 
 ### Figure 1. 
-![Figure 1](figures/recall_figure.png)
+<p align="center">
+	<img src = "figures/recall_figure.png" width = "60%">
+</p>
 Recall Performance. Mean idea units recalled on the final free recall test for each type of idea unit for Experiment 1 (viruses text) and Experiment 2 (endocrine text). Main idea units were practiced by the RPm group only. Peripheral idea units were practiced by the RPp group only. The NRP group did not practice any idea units. Panels A and B depict the “testing effect” in that retention of main ideas and peripheral ideas were greatest for the RPm and RPp groups, respectively. Panel C depicts recall of unpracticed idea units (all idea units not included in previous two panels). Error bars indicate standard error of the mean. 
 
 
