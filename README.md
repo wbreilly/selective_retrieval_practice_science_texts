@@ -16,9 +16,13 @@ This repository includes the scripts used to munge, analyze, and visualize the d
 
 `publication_ready_plots.py` Produces the manuscript's figures. 
 
-`viruses_stats_imac2.Rmd` Experiment 1 statistical analyses. Control analyses, recall model selection and analyses, multiple choice model selection and analyses. 
+`viruses_stats_imac2.Rmd` Experiment 1 statistical analyses. Control analyses, recall model selection and analyses, multiple choice model selection and analyses.
+
+`viruses_stats_imac2.nb.pdf` Code and output (Rmd does not render on GitHub).
 
 `endocrine_stats_imac2.Rmd` Experiment 2 statistical analyses. Control analyses, recall model selection and analyses, multiple choice model selection and analyses. 
+
+`endocrine_stats_imac2.nb.pdf` Code and output (Rmd does not render on GitHub).
 
 `bayes_factor.Rmd` Bayes Factor analyses for Experiment 1 and 2.
 
