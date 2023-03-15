@@ -1,0 +1,43 @@
+﻿idea_units,content,source_sentence,RPi_idea_bin,RPp_idea_bin,NRP_idea_bin,RP_any,RP_imp,RP_per
+1,The endocrine system produces chemicals ,1,RP-,RP-,NRP,0,0,0
+2,…Chemicals that regulate many of the body’s daily activities,1,RP-,RP-,NRP,0,0,0
+3,The endocrine system is made up of glands.,2,RP-,RP-,NRP,0,0,0
+4,A gland is an organ ,3,RP-,RP-,NRP,0,0,0
+5,….Glands produce or release a chemical,3,RP-,RP-,NRP,0,0,0
+6,"Some glands, (such as those that produce saliva and sweat), release their chemicals into tiny tubes called ducts.",4,RP-,RP-,NRP,0,0,0
+7,The ducts deliver the chemicals to a specific location within the body or to the skin’s surface.,5,RP-,RP+,NRP,1,0,1
+8,"However, endocrine glands do not have delivery tubes.",6,RP-,RP-,NRP,0,0,0
+9,"Endocrine glands produce and release their chemicals directly into the bloodstream, (without going through ducts).",7,RP+,RP-,NRP,1,1,0
+10,The chemical product of an endocrine gland is called a hormone.,8,RP-,RP-,NRP,0,0,0
+11,The bloodstream carries hormones throughout the body.,9,RP-,RP-,NRP,0,0,0
+12,"When a hormone enters the bloodstream, it does not interact with all organs in the body.",10,RP-,RP-,NRP,0,0,0
+13,Hormones interact with only certain cells,11,RP-,RP-,NRP,0,0,0
+14,...that recognize the hormone’s chemical structure,11,RP-,RP-,NRP,0,0,0
+15,These are called target cells.,12,RP-,RP-,NRP,0,0,0
+16,A target cell may have several different receptor types,13,RP-,RP+,NRP,1,0,1
+17,...receptor types that activate different signal transduction pathways.,13,RP-,RP+,NRP,1,0,1
+18,Hormones that do not fit a particular organ’s target cells,14,RP+,RP-,NRP,1,1,0
+19,...will travel through the bloodstream until they find target cells that they fit.,14,RP+,RP-,NRP,1,1,0
+20,"Target cells then respond to the hormones by turning on, turning off, the activities of different organs and tissues.",15,RP-,RP-,NRP,0,0,0
+21,"...speeding up, or slowing down the activities of different organs and tissues.",15,RP-,RP-,NRP,0,0,0
+22,Hormones can regulate activities in tissues and organs that are far from the glands that produce them.,16,RP-,RP-,NRP,0,0,0
+23,One of the main functions of the endocrine system is to control the body’s response to an exciting situation.,17,RP-,RP-,NRP,0,0,0
+24,"(When the brain processes an exciting situation,) hormones travel from the hypothalamus, to the pituitary gland",18,RP-,RP-,NRP,0,0,0
+25,...pituitary gland to the adrenal gland.,18,RP-,RP-,NRP,0,0,0
+26,This three-step process of the endocrine system is called the HPA axis.,19,RP-,RP-,NRP,0,0,0
+27,The HPA axis integrates physical and psychosocial influences ,20,RP-,RP+,NRP,1,0,1
+28,...(The HPA axis) allows an organism to adapt to its environment,20,RP-,RP+,NRP,1,0,1
+29,"In the first three steps of the HPA axis, a hormone attaches to a target cell",21,RP+,RP-,NRP,1,1,0
+30, ...and a new hormone is produced,21,RP+,RP-,NRP,1,1,0
+31,"In the final step, the adrenal gland releases the hormone adrenaline into the bloodstream.",22,RP-,RP-,NRP,0,0,0
+32,The hormone adrenaline is carried in the bloodstream ,23,RP+,RP-,NRP,1,1,0
+33,"...Adrenaline target cells are located in your heart, lungs, muscles, and stomach.",23,RP+,RP-,NRP,1,1,0
+34,The target cells in your heart and lungs respond to adrenaline by speeding up the activities of these organs.,24,RP-,RP-,NRP,0,0,0
+35,Adrenaline also releases sugars in your muscles to give you energy,25,RP-,RP-,NRP,0,0,0
+36, ...in case you need to either “fight” or run away from a situation (“flight”).,25,RP-,RP-,NRP,0,0,0
+37,"Thus, this has been called the fight-or-flight response.",26,RP-,RP-,NRP,0,0,0
+38,"At the same time, target cells in the stomach respond to adrenaline by slowing down activity,",27,RP-,RP-,NRP,0,0,0
+39,...so more blood can be sent to other muscles.,27,RP-,RP-,NRP,0,0,0
+40,Adrenaline concentrations in resting adults may increase by 10-fold during exercise ,28,RP-,RP+,NRP,1,0,1
+41,...and by 50-fold during stress.,28,RP-,RP+,NRP,1,0,1
+42,These responses continue until the amount of adrenaline in the blood drops to a normal level.,29,RP-,RP-,NRP,0,0,0

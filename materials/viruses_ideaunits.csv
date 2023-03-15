@@ -1,0 +1,50 @@
+﻿idea_units,content,source_sentence,RPi_idea_bin,RPp_idea_bin,NRP_idea_bin,RP_any,RP_imp,RP_per
+0,,,,,,,,
+1,"﻿A virus is a tiny, nonliving particle ",1,RP-,RP-,NRP,0,0,0
+2, Viruses can invade and reproduce inside any living cells  ,1,RP-,RP-,NRP,0,0,0
+3, Biologists consider viruses to be non-living ,2,RP-,RP-,NRP,0,0,0
+4, Viruses are not cells ,2,RP-,RP-,NRP,0,0,0
+5, Viruses do not use energy to grow ,3,RP-,RP+,NRP,1,0,1
+6, Viruses do not respond to their surroundings ,3,RP-,RP+,NRP,1,0,1
+7," Viruses cannot make food, ",4,RP-,RP-,NRP,0,0,0
+8, Viruses cannot take in food,4,RP-,RP-,NRP,0,0,0
+9, Viruses cannot produce waste ,4,RP-,RP-,NRP,0,0,0
+10,"The only way in which viruses are like organisms is that they can multiply, ",5,RP-,RP-,NRP,0,0,0
+11, but they do so differently ,5,RP-,RP-,NRP,0,0,0
+12, Viruses can only multiply when they are inside a living cell ,6,RP+,RP-,NRP,1,1,0
+13,Viruses infect host cells,7,RP-,RP-,NRP,0,0,0
+14,Host cells are infected so that the virus can multiply,7,RP-,RP-,NRP,0,0,0
+15,All viruses have two basic parts: ,8,RP-,RP-,NRP,0,0,0
+16,a protein coat,8,RP-,RP-,NRP,0,0,0
+17,the protein coat protects the virus,8,RP-,RP-,NRP,0,0,0
+18, and an inner core,8,RP-,RP-,NRP,0,0,0
+19,the inner core is made of genetic material ,8,RP-,RP-,NRP,0,0,0
+20, A virus’s genetic material contains the instructions for making new viruses,9,RP-,RP-,NRP,0,0,0
+21, The proteins on the surface of a virus play an important role ,10,RP-,RP-,NRP,0,0,0
+22, during the invasion of a host cell ,10,RP-,RP-,NRP,0,0,0
+23, Each virus contains unique surface proteins ,11,RP+,RP-,NRP,1,1,0
+24, the surface proteins look like the proteins that the host cell normally needs ,11,RP+,RP-,NRP,1,1,0
+25, The virus attaches itself to special sites on the host ,12,RP-,RP+,NRP,1,0,1
+26,the host has special sites reserved for the virus's surface proteins ,12,RP-,RP+,NRP,1,0,1
+27," Like keys, a virus’s proteins fit only into certain “locks,”  or proteins on the surface of a host cell ",13,RP-,RP-,NRP,0,0,0
+28," Because the lock-and-key action of a virus is specific, ",14,RP-,RP-,NRP,0,0,0
+29, a certain virus can attach only to one or a few types of cells  ,14,RP-,RP-,NRP,0,0,0
+30,"Once a virus attaches to the surface of a host cell, ",15,RP-,RP-,NRP,0,0,0
+31, it injects its genetic material into the cell ,15,RP-,RP-,NRP,0,0,0
+32, The virus’s inner core takes over the cell functions ,16,RP+,RP-,NRP,1,1,0
+33, and the cell starts to produce the virus’s proteins ,16,RP+,RP-,NRP,1,1,0
+34, and genetic material ,16,RP+,RP-,NRP,1,1,0
+35," In turn, these two parts assemble into new viruses ",17,RP-,RP+,NRP,1,0,1
+36, new viruses fill the cell ,17,RP-,RP+,NRP,1,0,1
+37," When it is full of new viruses, the host cell bursts open and dies ",18,RP-,RP-,NRP,0,0,0
+38, as it releases hundreds of new viruses ,18,RP-,RP-,NRP,0,0,0
+39, to infect other cells ,18,RP-,RP-,NRP,0,0,0
+40, and the process starts over again ,18,RP-,RP-,NRP,0,0,0
+41,"Despite their tiny size, ",19,RP+,RP-,NRP,1,1,0
+42,﻿ viruses have the ability to cause a lot of damage to cells of other organisms ,19,RP+,RP-,NRP,1,1,0
+43, All living things are capable of being infected by viruses ,20,RP-,RP-,NRP,0,0,0
+44, One of the best studied viruses infects bacteria ,21,RP-,RP+,NRP,1,0,1
+45," It is called a bacteriophage, ",22,RP-,RP+,NRP,1,0,1
+46, which means bacteria-eater ,22,RP-,RP+,NRP,1,0,1
+47," In humans, viruses may cause relatively harmless diseases such as cold sores and colds, ",23,RP-,RP-,NRP,0,0,0
+48, or life-threatening diseases such as polio and AIDS,23,RP-,RP-,NRP,0,0,0
