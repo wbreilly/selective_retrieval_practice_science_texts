@@ -1,4 +1,4 @@
-## A repository for the analysis and visualization code used in *The limited reach of retrieval practice: Practice of science text material enhances retention of practiced material, but unpracticed material is unaffected.* Reilly W.B., Antony. J.W., & Ranganath, C. (in prep)
+## A repository for the analysis and visualization code used in *The limited reach of retrieval practice: Practice of science text material enhances retention of practiced material, but unpracticed material is unaffected.* Reilly W.B., Antony. J.W., & Ranganath, C. (under review)
 
 ### Project Description
 
